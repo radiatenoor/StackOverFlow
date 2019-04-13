@@ -18,4 +18,10 @@ Route::get('/dashboard','Admin\HomeController@index');
 Route::get('/user/list','Admin\UserController@index');
 Route::get('/user/create','Admin\UserController@create');
 Route::get('/user/edit','Admin\UserController@edit');
-Route::get('/admin/login','Auth\LoginController@showLoginForm');
+/* Login Route */
+Route::get('/user/login','Auth\LoginController@showLoginForm');
+Route::post('/user/login','Auth\LoginController@login')->name('user.login');
+Route::post('/user/logout','Auth\LoginController@logout')->name('user.logout');
+/* Registration Route */
+Route::get('/user/registration','Auth\RegisterController@showRegistrationForm');
+Route::post('/user/register','Auth\RegisterController@userRegister')->name('user.register');

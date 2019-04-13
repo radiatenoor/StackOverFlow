@@ -20,7 +20,10 @@
                             </a>
                         </li>
                         <li><a href="javascript:;">Help</a></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                        <li><a href="#" onclick="document.getElementById('user-logout').submit()"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                        <form id="user-logout" action="{{ route('user.logout') }}" method="post" style="display: none">
+                            @csrf
+                        </form>
                     </ul>
                 </li>
 

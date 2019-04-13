@@ -14,7 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.user.list');
+        return view('front.user.list');
     }
 
     /**
@@ -24,7 +24,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user.create');
+        return view('front.user.create');
     }
 
     /**
@@ -55,7 +55,7 @@ class UserController extends Controller
      */
     public function edit()
     {
-        return view('admin.user.edit');
+        return view('front.user.edit');
     }
 
     /**

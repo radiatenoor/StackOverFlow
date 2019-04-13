@@ -12,6 +12,8 @@
 <link href="{{ asset('js/admin/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
 <!-- NProgress -->
 <link href="{{ asset('js/admin/nprogress/nprogress.css') }}" rel="stylesheet">
+<!-- Animate.css -->
+<link href="{{ asset('js/admin/animate.css/animate.min.css') }}" rel="stylesheet">
 
 <!-- Custom Theme Style -->
 <link href="{{ asset('css/admin/custom.min.css') }}" rel="stylesheet">

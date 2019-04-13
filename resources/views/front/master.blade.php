@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- @include('admin.partials._head')
+ @include('front.partials._head')
 </head>
 
 <body class="nav-md">
 <div class="container body">
     <div class="main_container">
         <!-- Side Bar -->
-        @include('admin.partials._side-nav')
+        @include('front.partials._side-nav')
         <!-- /Side Bar -->
 
         <!-- top navigation -->
-         @include('admin.partials._top-nav')
+         @include('front.partials._top-nav')
         <!-- /top navigation -->
 
         <!-- page content -->
@@ -39,6 +39,6 @@
     </div>
 </div>
 
-@include('admin.partials._script')
+@include('front.partials._script')
 </body>
 </html>

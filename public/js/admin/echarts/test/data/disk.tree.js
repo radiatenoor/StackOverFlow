@@ -200,13 +200,13 @@ window.disk_usage_tree =
             },
             {
                 "value": 12,
-                "name": "AddAttachments to Front Message.action",
-                "path": "Automator/AddAttachments to Front Message.action",
+                "name": "AddAttachments to front Message.action",
+                "path": "Automator/AddAttachments to front Message.action",
                 "children": [
                     {
                         "value": 12,
                         "name": "Contents",
-                        "path": "Automator/AddAttachments to Front Message.action/Contents"
+                        "path": "Automator/AddAttachments to front Message.action/Contents"
                     }
                 ]
             },
