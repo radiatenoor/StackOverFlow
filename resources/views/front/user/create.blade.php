@@ -5,5 +5,5 @@
     </div>
 @endsection
 @section('contain')
-  {{--Here We Place User Create Form  --}}
+  {{--Here We Place Admin Create Form  --}}
 @endsection

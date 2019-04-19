@@ -313,10 +313,10 @@ The animation object passed to the callbacks is of type `Chart.Animation`. The o
     // Function that renders the chart
     render: Function,
 
-    // User callback
+    Admin
     onAnimationProgress: Function,
 
-    // User callback
+    Admin
     onAnimationComplete: Function
 }
 ```
