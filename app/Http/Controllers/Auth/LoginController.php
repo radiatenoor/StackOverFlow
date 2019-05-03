@@ -96,17 +96,17 @@ class LoginController extends Controller
 
             }
             // title check
-            if ($user->title=="Software Developer"){
-                $title=true;
-            }else{
-                $this->incrementLoginAttempts($request);
-                $this->errors['title']= "You Are Not Software Developer";
-
-            }
+//            if ($user->title=="Software Developer"){
+//                $title=true;
+//            }else{
+//                $this->incrementLoginAttempts($request);
+//                $this->errors['title']= "You Are Not Software Developer";
+//
+//            }
             /*Extra more field to check */
 
             /* final response. where it redirect to dashboard or home route*/
-            if ($active && $title /*more true check*/){
+            if ($active /* && $title more true check*/){
                 return $this->sendLoginResponse($request);
             }else{
                 $this->logout($request);

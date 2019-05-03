@@ -4,8 +4,7 @@
 <script src="{{ asset('js/admin/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <!-- FastClick -->
 <script src="{{ asset('js/admin/fastclick/lib/fastclick.js') }}"></script>
-<!-- NProgress -->
-<script src="{{ asset('front') }}"></script>
 
 <!-- Custom Theme Scripts -->
 <script src="{{ asset('js/admin/custom.min.js') }}"></script>
+@yield('script')

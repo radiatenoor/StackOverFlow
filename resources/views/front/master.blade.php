@@ -22,6 +22,7 @@
                 <div class="clearfix"></div>
 
                 <div class="row">
+                    @include('front.partials._message')
                     @yield('contain')
                 </div>
             </div>

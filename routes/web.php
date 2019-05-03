@@ -27,3 +27,9 @@ Route::post('/user/logout','Auth\LoginController@logout')->name('user.logout');
 /* Registration Route */
 Route::get('/user/registration','Auth\RegisterController@showRegistrationForm');
 Route::post('/user/register','Auth\RegisterController@userRegister')->name('user.register');
+
+/*Question Routes*/
+Route::get('/new/question','User\QuestionController@create');
+Route::post('/store/question','User\QuestionController@store')
+    ->name('store.question');
+Route::get('/question/list','User\QuestionController@index');

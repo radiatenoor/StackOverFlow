@@ -17,3 +17,4 @@
 
 <!-- Custom Theme Style -->
 <link href="{{ asset('css/admin/custom.min.css') }}" rel="stylesheet">
+@yield('stylesheet')
