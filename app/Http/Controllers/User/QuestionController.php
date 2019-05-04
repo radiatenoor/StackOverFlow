@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-
+use Yajra\DataTables\Facades\DataTables;
 class QuestionController extends Controller
 {
     /**
@@ -111,5 +111,41 @@ class QuestionController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function questionData(){
+        $customData=[];
+        $question = Question::where('user_id',Auth::user()->id)
+            ->with('tags:name','category')
+            ->orderBy('id','DESC')
+            ->get();
+
+        $data_table_render = DataTables::of($question)
+            ->addColumn('hash',function ($row){
+                return $row->id;
+            })
+            ->addColumn('action',function ($row){
+                return '<button class="btn btn-info btn-xs"><i class="fa fa-edit"></i></button>'.
+                    '<button class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></button>';
+            })
+            ->editColumn('status',function ($row){
+                $htmlElement = "";
+                if ($row->status==1){
+                    $htmlElement = '<button class="btn btn-success btn-xs">Active</button>';
+                }else{
+                    $htmlElement = '<button class="btn btn-danger btn-xs">Inactive</button>';
+                }
+                return $htmlElement;
+            })
+            ->editColumn('tags',function ($row){
+                $htmlElement = '';
+                foreach ($row->tags as $tag){
+                    $htmlElement .= '<button class="btn btn-success btn-xs">'.$tag->name.'</button>';
+                }
+                return $htmlElement;
+            })
+            ->rawColumns(['tags','status','action'])
+            ->make(true);
+        return $data_table_render;
     }
 }
