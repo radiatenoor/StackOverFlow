@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Category;
 use App\Question;
 use App\Tag;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -147,5 +148,39 @@ class QuestionController extends Controller
             ->rawColumns(['tags','status','action'])
             ->make(true);
         return $data_table_render;
+    }
+
+    public function topQuestion(Request $request){
+
+        $today = date('Y-m-d');
+
+        /*get the value of url parameter*/
+        $getParams = $request->input('day');
+
+        $query = Question::orderBy('id','DESC');
+        if ($getParams=="today"){
+            $query->whereDate('created_at',$today);
+        }else if($getParams=="week"){
+            $date = new \DateTime($today);
+            $date->modify('-7 day');
+            $prevWeekDate = $date->format('Y-m-d');
+            $query->whereDate('created_at','<=',$today);
+            $query->whereDate('created_at','>=',$prevWeekDate);
+        }else if($getParams=="month"){
+            $date = new \DateTime($today);
+            $date->modify('-30 day');
+            $prevMonthDate = $date->format('Y-m-d');
+            $query->whereDate('created_at','<=',$today);
+            $query->whereDate('created_at','>=',$prevMonthDate);
+        }
+
+        /*paginate the result*/
+        $question = $query->paginate(5);
+        /*attach the url parameter with pagination link*/
+        $question->appends(['day'=>$getParams]);
+
+        return view('front.question.top')
+            ->with('question',$question)
+            ->with('activeParamBtn',$getParams);
     }
 }

@@ -34,3 +34,5 @@ Route::post('/store/question','User\QuestionController@store')
     ->name('store.question');
 Route::get('/question/list','User\QuestionController@index');
 Route::get('/question/datatable','User\QuestionController@questionData');
+Route::get('/top/question','User\QuestionController@topQuestion');
+Route::get('/show/question/{id}','User\QuestionController@show');
