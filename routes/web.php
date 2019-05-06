@@ -36,3 +36,4 @@ Route::get('/question/list','User\QuestionController@index');
 Route::get('/question/datatable','User\QuestionController@questionData');
 Route::get('/top/question','User\QuestionController@topQuestion');
 Route::get('/show/question/{id}','User\QuestionController@show');
+Route::post('/save/answer/{id}','User\QuestionController@saveAnswer')->name('save.answer');

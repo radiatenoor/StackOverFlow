@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Answer;
 use App\Category;
 use App\Question;
 use App\Tag;
@@ -184,5 +185,22 @@ class QuestionController extends Controller
         return view('front.question.top')
             ->with('question',$question)
             ->with('activeParamBtn',$getParams);
+    }
+
+    public function saveAnswer(Request $request,$question_id){
+        //validation
+        $this->validate($request,[
+            'answer'=>'required|min:6',
+        ]);
+
+        $answers = new Answer();
+        $answers->question_id = $question_id;
+        $answers->user_id = Auth::user()->id;
+        $answers->answer = $request->answer;
+        $answers->status = 1;
+        $answers->save();
+
+        Session::flash('success','You Have Successfully Save The Answered');
+        return redirect()->back();
     }
 }
