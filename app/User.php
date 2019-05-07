@@ -44,4 +44,8 @@ class User extends Authenticatable
     public function answers(){
         return $this->hasMany(Answer::class,'user_id','id');
     }
+
+    public function comments(){
+        return $this->hasMany(Comment::class,'user_id','id');
+    }
 }

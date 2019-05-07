@@ -4,7 +4,9 @@ namespace App\Http\Controllers\User;
 
 use App\Answer;
 use App\Category;
+use App\Comment;
 use App\Question;
+use App\Rules\StripThenLength;
 use App\Tag;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -190,7 +192,7 @@ class QuestionController extends Controller
     public function saveAnswer(Request $request,$question_id){
         //validation
         $this->validate($request,[
-            'answer'=>'required|min:6',
+            'answer'=>['required',new StripThenLength(6)],
         ]);
 
         $answers = new Answer();
@@ -199,8 +201,23 @@ class QuestionController extends Controller
         $answers->answer = $request->answer;
         $answers->status = 1;
         $answers->save();
-
         Session::flash('success','You Have Successfully Save The Answered');
+        return redirect()->back();
+    }
+
+    public function makeComments(Request $request,$answered_id){
+        //validation
+        $this->validate($request,[
+            'comment'=>['required',new StripThenLength(6)],
+        ]);
+
+        $comments = new Comment();
+        $comments->answer_id = $answered_id;
+        $comments->user_id = Auth::user()->id;
+        $comments->comment = $request->comment;
+        $comments->save();
+
+        Session::flash('success','You Have Successfully Save Comment');
         return redirect()->back();
     }
 }
