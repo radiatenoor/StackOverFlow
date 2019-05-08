@@ -8,6 +8,8 @@ use App\Comment;
 use App\Question;
 use App\Rules\StripThenLength;
 use App\Tag;
+use App\UpVote;
+use App\Vote;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -205,6 +207,19 @@ class QuestionController extends Controller
         return redirect()->back();
     }
 
+    public function updateAnswer(Request $request,$answer_id){
+        $this->validate($request,[
+            'answer'=>['required',new StripThenLength(6)],
+        ]);
+
+        $answers = Answer::where('user_id',Auth::user()->id)->find($answer_id);
+        $answers->answer = $request->answer;
+        $answers->save();
+
+        Session::flash('success','You Have Successfully Updated The Answered');
+        return redirect()->back();
+    }
+
     public function makeComments(Request $request,$answered_id){
         //validation
         $this->validate($request,[
@@ -218,6 +233,36 @@ class QuestionController extends Controller
         $comments->save();
 
         Session::flash('success','You Have Successfully Save Comment');
+        return redirect()->back();
+    }
+
+    public function deleteComment($comment_id){
+        $comment = Comment::where('user_id',Auth::user()->id)
+            ->where('id',$comment_id)
+            ->first();
+        if ($comment){
+            $comment->delete();
+            return response()->json('success',201);
+        }
+        return response()->json('error',422);
+    }
+
+    public function vote($id){
+        $vote = new Vote();
+        $vote->question_id = $id;
+        $vote->user_id = Auth::user()->id;
+        $vote->save();
+
+        Session::flash('success','Up Vote Successfully Done');
+        return redirect()->back();
+    }
+    public function cancelVote($id){
+        $vote = Vote::where('question_id',$id)
+            ->where('user_id',Auth::user()->id)
+            ->first();
+        $vote->delete();
+
+        Session::flash('success','Down Vote Successfully Done');
         return redirect()->back();
     }
 }

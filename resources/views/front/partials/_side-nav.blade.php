@@ -27,19 +27,16 @@
                 <h3>General</h3>
                 <ul class="nav side-menu">
                     <li><a href="{{ url('dashboard') }}"><i class="fa fa-home"></i> Dashboard</a></li>
-                    <li><a><i class="fa fa-home"></i> User <span class="fa fa-chevron-down"></span></a>
+                    <li><a><i class="fa fa-home"></i> Question <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="{{ url('user/create') }}">Create</a></li>
-                            <li><a href="{{ url('user/list') }}">List</a></li>
+                            <li><a href="{{ url('new/question') }}">New</a></li>
+                            <li><a href="{{ url('question/list') }}">List</a></li>
                         </ul>
                     </li>
-                    <li><a><i class="fa fa-home"></i> Extra <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="{{ url('user/create') }}">Category</a></li>
-                            <li><a href="{{ url('user/list') }}">Tags</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="{{ url('dashboard') }}"><i class="fa fa-home"></i> Top Question</a></li>
+                    <li><a href="{{ url('top/question') }}"><i class="fa fa-home"></i> Answered List</a></li>
+                    <li><a href="{{ url('top/question') }}"><i class="fa fa-home"></i> Top Question</a></li>
+                    <li><a href="{{ url('top/question') }}"><i class="fa fa-home"></i> Search Question</a></li>
+                    <li><a href="{{ url('top/question') }}"><i class="fa fa-home"></i> Users</a></li>
                 </ul>
             </div>
         </div>

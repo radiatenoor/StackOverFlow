@@ -82,9 +82,23 @@
  <script src="{{ asset('js/admin/select2/dist/js/select2.js') }}"></script>
  <script src="{{ asset('js/admin/parsleyjs/dist/parsley.js') }}"></script>
  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8.10.0/dist/sweetalert2.js"></script>
+ <script src="//cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
  <script>
      $(function () {
         $("#tag").select2();
+         /*if use ck editor then parsley validator works like this*/
+         CKEDITOR.on('instanceReady', function () {
+             $('#description').attr('required', '');
+             $.each(CKEDITOR.instances, function (instance) {
+                 CKEDITOR.instances[instance].on("change", function (e) {
+                     for (instance in CKEDITOR.instances) {
+                         CKEDITOR.instances[instance].updateElement();
+                     }
+                 });
+             });
+         });
+         CKEDITOR.replace( 'description' );
+
         $("#question_form").on('submit',function (e) {
             var form = $(this);
             form.parsley().validate();
@@ -115,9 +129,9 @@
                                     allowOutsideClick: false
                                 });
                             },
-                            success:function (data) {
+                            success:function (response) {
                                 Swal.close();
-                                console.log(data);
+                                console.log(response.data);
                             },
                             error:function (error) {
                                 Swal.close();

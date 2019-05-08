@@ -35,6 +35,12 @@ Route::post('/store/question','User\QuestionController@store')
 Route::get('/question/list','User\QuestionController@index');
 Route::get('/question/datatable','User\QuestionController@questionData');
 Route::get('/top/question','User\QuestionController@topQuestion');
-Route::get('/show/question/{id}','User\QuestionController@show');
+Route::get('/show/question/{id}','User\QuestionController@show')->name('show.question');
 Route::post('/save/answer/{id}','User\QuestionController@saveAnswer')->name('save.answer');
 Route::post('/comment/on/answer/{id}','User\QuestionController@makeComments')->name('comment.on');
+Route::get('/delete/comment/{id}','User\QuestionController@deleteComment')->name('delete.comment');
+Route::post('update/answer/{id}','User\QuestionController@updateAnswer');
+
+/*Vote Routes*/
+Route::get('/vote/{id}','User\QuestionController@vote')->name('vote');
+Route::get('/cancel/vote/{id}','User\QuestionController@cancelVote')->name('cancel.vote');

@@ -48,4 +48,8 @@ class User extends Authenticatable
     public function comments(){
         return $this->hasMany(Comment::class,'user_id','id');
     }
+
+    public function vote(){
+        return $this->hasOne(Vote::class,'user_id','id');
+    }
 }
