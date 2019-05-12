@@ -39,7 +39,10 @@ Route::get('/show/question/{id}','User\QuestionController@show')->name('show.que
 Route::post('/save/answer/{id}','User\QuestionController@saveAnswer')->name('save.answer');
 Route::post('/comment/on/answer/{id}','User\QuestionController@makeComments')->name('comment.on');
 Route::get('/delete/comment/{id}','User\QuestionController@deleteComment')->name('delete.comment');
-Route::post('update/answer/{id}','User\QuestionController@updateAnswer');
+Route::post('/update/answer/{id}','User\QuestionController@updateAnswer');
+Route::get('/edit/question/{id}','User\QuestionController@edit')->name('edit.question');
+Route::POST('/update/question/{id}','User\QuestionController@update')->name('update.question');
+Route::get('/delete/question/{id}','User\QuestionController@destroy')->name('delete.question');
 
 /*Vote Routes*/
 Route::get('/vote/{id}','User\QuestionController@vote')->name('vote');

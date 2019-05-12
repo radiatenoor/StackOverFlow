@@ -95,30 +95,59 @@ class QuestionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $question = Question::where('user_id',Auth::user()->id)->find($id);
+        $question_tag = [];
+        $i=0;
+        foreach ($question->tags as $tag){
+            $question_tag[$i] = $tag->id;
+            $i++;
+        }
+        $category = Category::all();
+        $tags = Tag::all();
+        return view('front.question.edit')
+            ->with('question',$question)
+            ->with('question_tag',$question_tag)
+            ->with('tags',$tags)
+            ->with('categories',$category);
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request, $id)
     {
-        //
+        //1. validation
+        $this->validate($request,[
+            'title'=>'required|min:6',
+            'category'=>'required',
+            'tag'=>'required|array|min:1',
+            'description'=>'required|min:10'
+        ]);
+        // 2. data insert
+        $quest = Question::find($id);
+        $quest->title = $request->title;
+        $quest->category_id = $request->category;
+        $quest->description = $request->description;
+        $quest->save();
+
+        // data insert in many to many relationship/link table
+        $quest->tags()->sync($request->tag);
+
+        return response()->json('success',201);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
-        //
+        $question = Question::where('user_id',Auth::id())->find($id);
+        if ($question){
+            $question->delete();
+            return response()->json('success',201);
+        }
+        return response()->json('error',201);
     }
 
     public function questionData(){
@@ -133,8 +162,11 @@ class QuestionController extends Controller
                 return $row->id;
             })
             ->addColumn('action',function ($row){
-                return '<button class="btn btn-info btn-xs"><i class="fa fa-edit"></i></button>'.
-                    '<button class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></button>';
+                $edit_url = route('edit.question',$row->id);
+                $show_url = route('show.question',$row->id);
+                return '<a href="'.$edit_url.'" class="btn btn-success btn-xs"><i class="fa fa-edit"></i></a>'.
+                    '<a href="'.$show_url.'" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>'.
+                    '<button type="button" onclick="deletes('.$row->id.')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></button>';
             })
             ->editColumn('status',function ($row){
                 $htmlElement = "";

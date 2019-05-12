@@ -6,6 +6,7 @@
 @endsection
 @section('stylesheet')
   <link href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@8.10.0/dist/sweetalert2.css" rel="stylesheet">
 @endsection
 @section('contain')
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -36,6 +37,8 @@
 @endsection
 @section('script')
   <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8.10.0/dist/sweetalert2.js"></script>
+
     <script>
         $(document).ready( function () {
             $('#question_table').DataTable({
@@ -58,5 +61,54 @@
                 }
             });
         } );
+        function deletes(id){
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You want to delete?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Delete it!'
+            }).then(function(result) {
+                if (result.value) {
+                    var url = "{{url('/delete/question')}}"+"/"+id;
+                   $.ajax({
+                       url:url,
+                       type:'GET',
+                       contentType:false,
+                       processData:false,
+                       beforeSend:function () {
+                           Swal.fire({
+                               title: 'Deleting Data.......',
+                               showConfirmButton: false,
+                               html: '<i class="fa fa-spinner fa-spin" style="font-size:24px"></i>',
+                               allowOutsideClick: false
+                           });
+                       },
+                       success:function (response) {
+                         Swal.close();
+                         console.log(response);
+                         if (response==="success"){
+                             Swal.fire({
+                                 title: 'Successfully Deleted',
+                                 type: 'success',
+                                 confirmButtonColor: '#3085d6',
+                                 confirmButtonText: 'Ok'
+                             }).then(function(result) {
+                                 if (result.value) {
+                                     window.location.reload();
+                                 }
+                             });
+                         }
+                       },
+                       error:function (error) {
+                         Swal.close();
+                         console.log(error);
+                       }
+                   })
+                }
+            });
+        }
     </script>
 @endsection
