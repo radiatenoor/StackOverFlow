@@ -36,10 +36,6 @@ Route::get('/question/list','User\QuestionController@index');
 Route::get('/question/datatable','User\QuestionController@questionData');
 Route::get('/top/question','User\QuestionController@topQuestion');
 Route::get('/show/question/{id}','User\QuestionController@show')->name('show.question');
-Route::post('/save/answer/{id}','User\QuestionController@saveAnswer')->name('save.answer');
-Route::post('/comment/on/answer/{id}','User\QuestionController@makeComments')->name('comment.on');
-Route::get('/delete/comment/{id}','User\QuestionController@deleteComment')->name('delete.comment');
-Route::post('/update/answer/{id}','User\QuestionController@updateAnswer');
 Route::get('/edit/question/{id}','User\QuestionController@edit')->name('edit.question');
 Route::POST('/update/question/{id}','User\QuestionController@update')->name('update.question');
 Route::get('/delete/question/{id}','User\QuestionController@destroy')->name('delete.question');
@@ -47,3 +43,9 @@ Route::get('/delete/question/{id}','User\QuestionController@destroy')->name('del
 /*Vote Routes*/
 Route::get('/vote/{id}','User\QuestionController@vote')->name('vote');
 Route::get('/cancel/vote/{id}','User\QuestionController@cancelVote')->name('cancel.vote');
+
+/*Answer Route*/
+Route::post('/save/answer/{id}','User\AnswerController@saveAnswer')->name('save.answer');
+Route::post('/comment/on/answer/{id}','User\AnswerController@makeComments')->name('comment.on');
+Route::get('/delete/comment/{id}','User\AnswerController@deleteComment')->name('delete.comment');
+Route::post('/update/answer/{id}','User\AnswerController@updateAnswer');
