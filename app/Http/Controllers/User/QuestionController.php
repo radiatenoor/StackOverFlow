@@ -87,6 +87,12 @@ class QuestionController extends Controller
             ->with('question',$question);
     }
 
+    public function view($id){
+        $question = Question::where('user_id',Auth::user()->id)->find($id);
+        return view('front.question.view')
+            ->with('question',$question);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -163,9 +169,9 @@ class QuestionController extends Controller
             })
             ->addColumn('action',function ($row){
                 $edit_url = route('edit.question',$row->id);
-                $show_url = route('show.question',$row->id);
+                $view_url = route('view.question',$row->id);
                 return '<a href="'.$edit_url.'" class="btn btn-success btn-xs"><i class="fa fa-edit"></i></a>'.
-                    '<a href="'.$show_url.'" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>'.
+                    '<a href="'.$view_url.'" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>'.
                     '<button type="button" onclick="deletes('.$row->id.')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></button>';
             })
             ->editColumn('status',function ($row){

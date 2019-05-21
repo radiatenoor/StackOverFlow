@@ -11,6 +11,19 @@ class Question extends Model
 
     protected $hidden = ['pivot'];
 
+    /*
+     * Delete data from relationship table
+     * */
+    protected static function boot()
+    {
+        parent::boot();
+        static ::deleting(function ($questions){
+           foreach ($questions->answers()->get() as $question){
+               $question->delete();
+           }
+        });
+    }
+
     /*many To many RelationShip*/
     public function tags(){
         return $this->belongsToMany(Tag::class,'question_tags','question_id','tag_id')

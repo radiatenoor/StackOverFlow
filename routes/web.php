@@ -36,6 +36,7 @@ Route::get('/question/list','User\QuestionController@index');
 Route::get('/question/datatable','User\QuestionController@questionData');
 Route::get('/top/question','User\QuestionController@topQuestion');
 Route::get('/show/question/{id}','User\QuestionController@show')->name('show.question');
+Route::get('/view/question/{id}','User\QuestionController@view')->name('view.question');
 Route::get('/edit/question/{id}','User\QuestionController@edit')->name('edit.question');
 Route::POST('/update/question/{id}','User\QuestionController@update')->name('update.question');
 Route::get('/delete/question/{id}','User\QuestionController@destroy')->name('delete.question');
@@ -49,3 +50,5 @@ Route::post('/save/answer/{id}','User\AnswerController@saveAnswer')->name('save.
 Route::post('/comment/on/answer/{id}','User\AnswerController@makeComments')->name('comment.on');
 Route::get('/delete/comment/{id}','User\AnswerController@deleteComment')->name('delete.comment');
 Route::post('/update/answer/{id}','User\AnswerController@updateAnswer');
+Route::get('/answered/list','User\AnswerController@answeredList');
+Route::get('/get/answered/datatable','User\AnswerController@getDataTableAnsweredList');
