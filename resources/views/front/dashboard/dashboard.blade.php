@@ -57,13 +57,10 @@
         <label>Tags------------</label>
         <br>
         <hr>
-        <a href="" class="btn btn-danger btn-xs">PHP <span class="badge badge-danger">3</span></a>
-        <a href="" class="btn btn-danger btn-xs">JAVA <span class="badge badge-danger">3</span></a>
-        <a href="" class="btn btn-danger btn-xs">JavaScript <span class="badge badge-danger">3</span></a>
-        <a href="" class="btn btn-danger btn-xs">JavaScript <span class="badge badge-danger">8</span></a>
-        <a href="" class="btn btn-danger btn-xs">JavaScript <span class="badge badge-danger">66</span></a>
-        <a href="" class="btn btn-danger btn-xs">JavaScript <span class="badge badge-danger">3</span></a>
-        <a href="" class="btn btn-danger btn-xs">JavaScript <span class="badge badge-danger">123</span></a>
-        <a href="" class="btn btn-danger btn-xs">JavaScript <span class="badge badge-danger">3</span></a>
+        @foreach($tags as $row)
+           <a href="" class="btn btn-danger btn-xs">{{$row->name}}
+               <span class="badge badge-danger">{{count($row->questions)}}</span>
+           </a>
+        @endforeach
     </div>
 @endsection

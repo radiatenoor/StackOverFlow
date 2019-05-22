@@ -41,10 +41,8 @@ class AnswerController extends Controller
                 return $row['id'];
             })
             ->addColumn('action',function ($row){
-                $edit_url = route('edit.question',$row['id']);
-                $view_url = route('view.question',$row['id']);
-                return '<a href="'.$edit_url.'" class="btn btn-success btn-xs"><i class="fa fa-edit"></i></a>'.
-                    '<a href="'.$view_url.'" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>'.
+                $view_url = route('answered.question',$row['id']);
+                return '<a href="'.$view_url.'" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>'.
                     '<button type="button" onclick="deletes('.$row['id'].')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></button>';
             })
             ->rawColumns(['hash','action'])
@@ -103,6 +101,22 @@ class AnswerController extends Controller
             ->first();
         if ($comment){
             $comment->delete();
+            return response()->json('success',201);
+        }
+        return response()->json('error',422);
+    }
+
+    public function showAnsweredQuestion($id){
+        $answered = Answer::where('user_id',Auth::id())->find($id);
+        $question = $answered->question;
+        return view('front.answer.show')
+            ->with('question',$question);
+    }
+
+    public function destroy($id){
+        $answer = Answer::where('user_id',Auth::id())->find($id);
+        if ($answer) {
+            $answer->delete();
             return response()->json('success',201);
         }
         return response()->json('error',422);

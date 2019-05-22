@@ -247,4 +247,19 @@ class QuestionController extends Controller
         Session::flash('success','Down Vote Successfully Done');
         return redirect()->back();
     }
+
+
+    /*Search function for ANY route*/
+    public function search(Request $request){
+       $search = $request->input('title');
+       $questions = [];
+       if ($search) {
+           $questions = Question::where('title', 'like', '%' . $search . '%')
+               ->paginate(5)
+               ->setPath('');
+           $questions->appends(['title' => $search]);
+       }
+       return view('front.question.search')
+           ->with('questions',$questions);
+    }
 }

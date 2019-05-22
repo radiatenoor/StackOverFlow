@@ -15,7 +15,7 @@ Route::get("/show/my/page",function (){
 });
 /*group middleware*/
 /*Route::group(['middleware'=>'auth'],function (){*/
-    Route::get('/dashboard','Admin\HomeController@index')/*->middleware('auth')*/;
+    Route::get('/dashboard','User\HomeController@index')/*->middleware('auth')*/;
     Route::get('/user/list','Admin\UserController@index')/*->middleware('auth')*/;
     Route::get('/user/create','Admin\UserController@create') /*->middleware('auth')*/;
     Route::get('/user/edit','Admin\UserController@edit')/*->middleware('auth')*/;
@@ -40,6 +40,8 @@ Route::get('/view/question/{id}','User\QuestionController@view')->name('view.que
 Route::get('/edit/question/{id}','User\QuestionController@edit')->name('edit.question');
 Route::POST('/update/question/{id}','User\QuestionController@update')->name('update.question');
 Route::get('/delete/question/{id}','User\QuestionController@destroy')->name('delete.question');
+/*When use post search this is how we declare a route*/
+Route::any('/search/question','User\QuestionController@search')->name('search.question');
 
 /*Vote Routes*/
 Route::get('/vote/{id}','User\QuestionController@vote')->name('vote');
@@ -52,3 +54,6 @@ Route::get('/delete/comment/{id}','User\AnswerController@deleteComment')->name('
 Route::post('/update/answer/{id}','User\AnswerController@updateAnswer');
 Route::get('/answered/list','User\AnswerController@answeredList');
 Route::get('/get/answered/datatable','User\AnswerController@getDataTableAnsweredList');
+Route::get('/show/answered/question/{id}','User\AnswerController@showAnsweredQuestion')
+    ->name('answered.question');
+Route::get('/delete/answer/{id}','User\AnswerController@destroy')->name('delete.answer');

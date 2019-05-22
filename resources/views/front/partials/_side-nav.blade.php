@@ -1,7 +1,7 @@
 <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
         <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Admin Panel</span></a>
+            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>User Panel</span></a>
         </div>
 
         <div class="clearfix"></div>
@@ -13,7 +13,7 @@
             </div>
             <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>John Doe</h2>
+                <h2>{{Auth::user()->name}}</h2>
             </div>
             <div class="clearfix"></div>
         </div>
@@ -33,10 +33,9 @@
                             <li><a href="{{ url('question/list') }}">List</a></li>
                         </ul>
                     </li>
-                    <li><a href="{{ url('top/question') }}"><i class="fa fa-home"></i> Answered List</a></li>
+                    <li><a href="{{ url('answered/list') }}"><i class="fa fa-home"></i> Answered List</a></li>
                     <li><a href="{{ url('top/question') }}"><i class="fa fa-home"></i> Top Question</a></li>
-                    <li><a href="{{ url('top/question') }}"><i class="fa fa-home"></i> Search Question</a></li>
-                    <li><a href="{{ url('top/question') }}"><i class="fa fa-home"></i> Users</a></li>
+                    <li><a href="{{ url('search/question') }}"><i class="fa fa-home"></i> Search Question</a></li>
                 </ul>
             </div>
         </div>

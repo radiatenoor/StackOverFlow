@@ -68,7 +68,7 @@
                 confirmButtonText: 'Yes, Delete it!'
             }).then(function(result) {
                 if (result.value) {
-                    var url = "{{url('/delete/question')}}"+"/"+id;
+                    var url = "{{url('/delete/answer')}}"+"/"+id;
                     $.ajax({
                         url:url,
                         type:'GET',
