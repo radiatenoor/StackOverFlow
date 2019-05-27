@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
 
 class ResetPasswordController extends Controller
 {
@@ -25,7 +26,7 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/dashboard';
 
     /**
      * Create a new controller instance.
@@ -36,4 +37,18 @@ class ResetPasswordController extends Controller
     {
         $this->middleware('guest');
     }
+
+    /**
+     * @param Request $request
+     * @param null $token
+     * @return $this
+     */
+    public function showResetForm(Request $request, $token = null)
+    {
+        return view('front.auth.password.reset')->with(
+            ['token' => $token, 'email' => $request->email]
+        );
+    }
+
+
 }

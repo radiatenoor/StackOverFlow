@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   @include('front.partials._head')
+    @include('front.partials._head')
 </head>
 
 <body class="login">
@@ -11,27 +11,27 @@
         <div>
             <section class="login_content">
                 @include('front.partials._message')
-                <form action="{{ route('user.login') }}" method="post">
+                <form action="{{ route('password.request') }}" method="post">
                     @csrf
-                    <h1>User Login</h1>
-                    <div>
-                        <input type="text" class="form-control" placeholder="Email" name="email" value="{{ old('email') }}" required="" />
-                    </div>
-                    <div>
-                        <input type="password" class="form-control" placeholder="Password" name="password" required="" />
-                    </div>
-                    <div>
-                        <button class="btn btn-default submit" type="submit">Log in</button>
-                        <a class="reset_pass" href="{{url('password/reset/form')}}">Lost your password?</a>
-                    </div>
+                    <h1>Password Reset</h1>
 
+                    <div>
+                        <input type="hidden" name="token" value="{{ $token }}">
+                        <input type="text" class="form-control" placeholder="Email" name="email"
+                               value="{{ $email or old('email') }}" required="" autofocus />
+                    </div>
+                    <div>
+                        <input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
+                    </div>
+                    <div>
+                        <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" required>
+                    </div>
+                    <div>
+                        <button class="btn btn-default submit" type="submit">Reset Password</button>
+                    </div>
                     <div class="clearfix"></div>
 
                     <div class="separator">
-                        <p class="change_link">New to site?
-                            <a href="{{ url('user/registration') }}" class="to_register"> Create Account </a>
-                        </p>
-
                         <div class="clearfix"></div>
                         <br />
 

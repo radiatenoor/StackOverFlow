@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\MessageBag;
 
 class LoginController extends Controller
@@ -37,7 +39,8 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest')
+            ->except('logout','profile','profileUpdate');
     }
 
     // override
@@ -109,10 +112,11 @@ class LoginController extends Controller
             if ($active /* && $title more true check*/){
                 return $this->sendLoginResponse($request);
             }else{
-                $this->logout($request);
+                $this->destroyLogged($request);
             }
 
             return redirect('/user/login')
+                ->withInput($request->only('email'))
                 ->withErrors($this->errors);
         }
         // If the login attempt was unsuccessful we will increment the number of attempts
@@ -120,6 +124,14 @@ class LoginController extends Controller
         // user surpasses their maximum number of attempts they will get locked out.
         $this->incrementLoginAttempts($request);
         return $this->sendFailedLoginResponse($request);
+    }
+
+    public function destroyLogged(Request $request){
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        $this->loggedOut($request);
     }
 
     /**
@@ -153,4 +165,35 @@ class LoginController extends Controller
 //            'password'=>$request->password
 //        ];
 //    }
+
+      public function profile(){
+
+          return view('front.profile.profile');
+      }
+
+
+      public function profileUpdate(Request $request){
+          $this->validate($request,[
+              'name'=>'required|min:6',
+              'email'=>'required|email|unique:users,email,'.Auth::id(),
+              'title'=>'required',
+              'location'=>'required'
+          ]);
+
+          $user = User::find(Auth::id());
+          $user->name = $request->name;
+          $user->email = $request->email;
+          $user->title = $request->title;
+          $user->location = $request->location;
+          if ($request->hasFile('photo')){
+              $image = $request->file('photo');
+              $filename = time().".".$image->getClientOriginalExtension();
+              $path = public_path('images');
+              $image->move($path,$filename);
+              $user->photo = $filename;
+          }
+          $user->save();
+          Session::flash('success','You Have Successfully Updated');
+          return redirect()->back();
+      }
 }

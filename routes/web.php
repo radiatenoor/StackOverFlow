@@ -24,6 +24,18 @@ Route::get("/show/my/page",function (){
 Route::get('/user/login','Auth\LoginController@showLoginForm');
 Route::post('/user/login','Auth\LoginController@login')->name('user.login');
 Route::post('/user/logout','Auth\LoginController@logout')->name('user.logout');
+Route::get('/user/profile','Auth\LoginController@profile');
+Route::post('/update/profile','Auth\LoginController@profileUpdate')->name('update.profile');
+/*password reset link*/
+Route::get('/password/reset/form','Auth\ForgotPasswordController@showLinkRequestForm');
+Route::post('/send/reset/link','Auth\ForgotPasswordController@sendResetLinkEmail')
+    ->name('send.reset.link');
+/*password reset request*/
+Route::get('/password/reset/{token}','Auth\ResetPasswordController@showResetForm')
+    ->name('password.reset');
+Route::post('/password/reset','Auth\ResetPasswordController@reset')
+    ->name('password.request');
+
 /* Registration Route */
 Route::get('/user/registration','Auth\RegisterController@showRegistrationForm');
 Route::post('/user/register','Auth\RegisterController@userRegister')->name('user.register');

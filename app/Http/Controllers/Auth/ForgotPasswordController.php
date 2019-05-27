@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Password;
 
 class ForgotPasswordController extends Controller
 {
@@ -17,7 +19,6 @@ class ForgotPasswordController extends Controller
     | your application to your users. Feel free to explore this trait.
     |
     */
-
     use SendsPasswordResetEmails;
 
     /**
@@ -29,4 +30,15 @@ class ForgotPasswordController extends Controller
     {
         $this->middleware('guest');
     }
+
+    /*
+     * Override function
+     */
+    public function showLinkRequestForm()
+    {
+        return view('front.auth.password.email');
+    }
+
+
+
 }
