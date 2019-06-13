@@ -10,7 +10,12 @@
     <div class="login_wrapper">
         <div>
             <section class="login_content">
-                @include('front.partials._message')
+                @if (session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
+
                 <form action="{{ route('send.reset.link') }}" method="post">
                     @csrf
                     <h1>StackOverFlow</h1>
@@ -21,15 +26,6 @@
                         <button class="btn btn-default submit" type="submit">Send Reset Link</button>
                     </div>
                     <div class="clearfix"></div>
-
-                    <div class="separator">
-                        <div class="clearfix"></div>
-                        <br />
-
-                        <div>
-                            <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
-                        </div>
-                    </div>
                 </form>
             </section>
         </div>

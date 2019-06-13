@@ -40,7 +40,7 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')
-            ->except('logout','profile','profileUpdate');
+            ->except('logout','profile','profileUpdate','changePassword');
     }
 
     // override
@@ -48,7 +48,9 @@ class LoginController extends Controller
         return '/dashboard';
     }
 
-    // override
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showLoginForm(){
         return view('front/auth/login');
         //return view('admin.auth.login') /*Same As*/;
@@ -194,6 +196,19 @@ class LoginController extends Controller
           }
           $user->save();
           Session::flash('success','You Have Successfully Updated');
+          return redirect()->back();
+      }
+
+      public function changePassword(Request $request){
+          $this->validate($request,[
+              'password'=>'required|confirmed|min:6'
+          ]);
+
+          $user = User::find(Auth::id());
+          $user->password = bcrypt($request->password);
+          $user->save();
+
+          Session::flash('success','You Have Successfully Changed The Password');
           return redirect()->back();
       }
 }

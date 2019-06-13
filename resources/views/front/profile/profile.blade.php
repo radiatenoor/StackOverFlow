@@ -100,12 +100,13 @@
                                 </form>
                             </div>
                             <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
-                                <form class="form-horizontal">
+                                <form id="password_form" class="form-horizontal" action="{{route('change.password')}}" method="post">
+                                    @csrf
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">New Password <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" id="password" name="password" required="required"
+                                            <input type="password" id="password" name="password" required="required"
                                                    class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
@@ -113,13 +114,13 @@
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Confirm Password <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" id="password_confirmation" name="password_confirmation" required="required"
+                                            <input type="password" id="password_confirmation" name="password_confirmation" required="required"
                                                     class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 col-sm-offset-3">
-                                            <button type="button" class="btn btn-md btn-success"><i class="fa fa-save"></i> Update</button>
+                                            <button type="button" id="passwordChange" class="btn btn-md btn-success"><i class="fa fa-save"></i> Update</button>
                                         </div>
                                     </div>
                                 </form>
@@ -148,6 +149,22 @@
 
         $("#photo").change(function() {
             readURL(this);
+        });
+
+        $("#passwordChange").click(function () {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You Want Change The Password",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+            }).then(function (result) {
+                if (result.value) {
+                    $("#password_form").submit();
+                }
+            });
         });
     </script>
 @endsection

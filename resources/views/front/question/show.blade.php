@@ -5,7 +5,7 @@
     </div>
 @endsection
 @section('stylesheet')
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@8.10.0/dist/sweetalert2.css" rel="stylesheet">
+
 @endsection
 @section('contain')
     <div class="row">
@@ -205,7 +205,6 @@
     </div>
 @endsection
 @section('script')
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8.10.0/dist/sweetalert2.js"></script>
     <script src="//cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
     <script src="{{ asset('js/admin/parsleyjs/dist/parsley.js') }}"></script>
     <script>

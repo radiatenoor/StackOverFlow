@@ -1,4 +1,4 @@
-@extends('front.master')
+@extends('back.master')
 @section('page_title')
     <div class="title_left">
         <h3>User Edit</h3>
